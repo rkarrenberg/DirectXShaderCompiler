@@ -5685,7 +5685,8 @@ void CGMSHLSLRuntime::EmitHLSLOutParamConversionInit(
     }
 
     // save to generate lifetime end after call
-    lifetimeCleanupList.emplace_back(tmpLV);
+    if (CGM.getCodeGenOpts().HLSLEnableLifetimeMarkers)
+      lifetimeCleanupList.emplace_back(tmpLV);
 
     // cast before the call
     if (Param->isModifierIn() &&
